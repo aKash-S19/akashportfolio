@@ -702,6 +702,7 @@ const CONFIG = {
       'projects',
       'skills',
       'certifications',
+      'achievements',
       'resume',
       'about',
       'contact'
@@ -711,6 +712,7 @@ const CONFIG = {
       {label:'Projects',id:'projects'},
       {label:'Skills',id:'skills'},
       {label:'Certifications',id:'certifications'},
+      {label:'Achievements',id:'achievements'},
       {label:'Resume',id:'resume'},
       {label:'About',id:'about'},
       {label:'Contact',id:'contact'}
@@ -826,6 +828,13 @@ const CONFIG = {
       link: 'https://coursera.org/share/e1c4d7be8f82a8be27f9b090fc92a0af'
     },
     {
+      name: 'Introduction to Cybersecurity',
+      org: 'Cisco',
+      orgLogo: 'https://blogs.cisco.com/gcs/ciscoblogs/1/2025/09/Cisco-Logo-Midnight-Blue-with-white-logo.jpg',
+      date: 'Jan 2026',
+      link: 'https://www.credly.com/badges/46ab6b98-bce9-4fff-b64d-a4c424b5d69e/public_url'
+    },
+    {
     name: 'Google Prompting Essentials',
       org: 'Google',
       orgLogo: 'https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg',
@@ -843,19 +852,37 @@ const CONFIG = {
       name: 'Cyber Security and Privacy',
       org: 'NPTEL',
       orgLogo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8VRmuwZhG40QDxM_IF9klXkzNA96GmX1z2Q&s',
-      date: 'Oct 2025'
+      date: 'Oct 2025',
+      link: './assets/Cyber Security and Privacy.pdf'
     },
     {
       name: 'Cloud Computing',
       org: 'NPTEL',
       orgLogo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8VRmuwZhG40QDxM_IF9klXkzNA96GmX1z2Q&s',
-      date: 'Apr 2025'
+      date: 'Apr 2025',
+      link: './assets/Cloud Computing.pdf'
     },
     {
       name: 'Programming in Java',
       org: 'NPTEL',
       orgLogo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8VRmuwZhG40QDxM_IF9klXkzNA96GmX1z2Q&s',
-      date: 'Apr 2024'
+      date: 'Apr 2024',
+      link: './assets/Programming in Java.pdf'
+    }
+  ],
+
+  achievements: [
+    {
+      title: 'MindKraft : Hashes over Roses 3.0 CTF',
+      place: '2nd Place',
+      org: 'Karunya Institute of Technology and Sciences, Coimbatore',
+      date: 'Mar 2026'
+    },
+    {
+      title: 'Cybersplash',
+      place: '1st Place',
+      org: 'K.Ramakrishnan College of Technology, Trichy',
+      date: 'Apr 2026'
     }
   ],
 
@@ -865,7 +892,6 @@ const CONFIG = {
 
   contact:{
     email: 'akashprasanna17@gmail.com',
-    phone: '+91 9789863140',
     github: 'https://github.com/aKash-S19',
     linkedin: 'https://www.linkedin.com/in/akash-prasanna-s-a12a602a4/',
     location: 'India'
@@ -888,6 +914,7 @@ const sections = {
   projects:renderProjects,
   skills:renderSkills,
   certifications:renderCertifications,
+  achievements:renderAchievements,
   resume:renderResume,
   about:renderAbout,
   contact:renderContact
@@ -1056,6 +1083,28 @@ function renderResume(){
   `
 }
 
+function renderAchievements(){
+  return`
+  <section class="section" id="achievements">
+    <div class="container">
+      <div class="section-tag" data-aos="fade-up">HIGHLIGHTS</div>
+      <h2 class="section-title" data-aos="fade-up" data-aos-delay="100">Achievements</h2>
+      <div class="about-grid">
+        ${CONFIG.achievements.map((achievement, index)=>`
+          <div class="about-card" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="${index * 100}">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; gap: 12px; flex-wrap: wrap;">
+              <h3 style="margin-bottom: 0;">${achievement.title}</h3>
+              <span style="color: var(--primary); font-size: 14px; font-weight: 500;">${achievement.date}</span>
+            </div>
+            <p>${achievement.place} in ${achievement.title} at ${achievement.org}.</p>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  </section>
+  `
+}
+
 function renderAbout(){
   return`
   <section class="section" id="about">
@@ -1086,10 +1135,6 @@ function renderContact(){
         <div class="contact-card" data-aos="zoom-in-up" data-aos-duration="1000">
           <h3>Email</h3>
           <p><a href="mailto:${CONFIG.contact.email}">${CONFIG.contact.email}</a></p>
-        </div>
-        <div class="contact-card" data-aos="zoom-in-up" data-aos-duration="1000" data-aos-delay="100">
-          <h3>Phone</h3>
-          <p>${CONFIG.contact.phone}</p>
         </div>
         <div class="contact-card" data-aos="zoom-in-up" data-aos-duration="1000" data-aos-delay="200">
           <h3>LinkedIn</h3>
