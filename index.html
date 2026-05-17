@@ -1,0 +1,1470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Akash Prasanna S</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0f1115;
+      --surface:#171a21;
+      --surface-2:#1d212b;
+      --card:#181c24;
+      --text:#f3f4f6;
+      --muted:#98a2b3;
+      --border:#262b36;
+      --primary:#8ab4f8;
+      --primary-soft:#1f2a3d;
+      --shadow: 0 10px 30px rgba(0,0,0,0.35);
+      --radius:28px;
+      --container:1220px;
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:var(--bg);
+      color:var(--text);
+      font-family:'Inter',sans-serif;
+      overflow-x:hidden;
+      -webkit-font-smoothing:antialiased;
+      
+      /* Hide default mouse pointer globally */
+      cursor: none !important;
+    }
+
+    /* Force systems to drop native indicators across frames */
+    a, button, input, textarea, select, .card-image, .lightbox-close {
+      cursor: none !important;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      background:
+      radial-gradient(circle at top left, rgba(138,180,248,0.06), transparent 30%),
+      radial-gradient(circle at bottom right, rgba(138,180,248,0.04), transparent 30%);
+      z-index:-2;
+      pointer-events:none;
+    }
+
+    body::after{
+      content:"";
+      position:fixed;
+      inset:0;
+      background-image:
+      linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+      background-size:70px 70px;
+      pointer-events:none;
+      z-index:-1;
+    }
+
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+    img{
+      width:100%;
+      display:block;
+      object-fit:cover;
+    }
+
+    .container{
+      width:min(var(--container), calc(100% - 48px));
+      margin:auto;
+    }
+
+    .navbar{
+      position:fixed;
+      top:22px;
+      left:50%;
+      transform:translateX(-50%);
+      width:min(1180px, calc(100% - 24px));
+      z-index:1000;
+    }
+
+    .nav-inner{
+      background: rgba(23,26,33,0.72);
+      border: 1px solid rgba(255,255,255,0.05);
+      backdrop-filter: blur(22px);
+      border-radius: 999px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 18px 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .logo{
+      font-family: 'Google Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-links{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .nav-links a{
+      padding: 10px 16px;
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 500;
+      transition: 0.25s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active{
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+    }
+
+    main{
+      scroll-snap-type:y mandatory;
+    }
+
+    .section{
+      min-height: 100vh;
+      display:flex;
+      align-items:center;
+      padding: 120px 0 90px;
+      scroll-snap-align:start;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-tag{
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 22px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .section-title{
+      font-family: 'Google Sans', sans-serif;
+      font-size: clamp(42px, 6vw, 78px);
+      line-height: 1;
+      letter-spacing: -3px;
+      margin-bottom: 24px;
+      max-width: 900px;
+    }
+
+    .section-subtitle{
+      max-width: 760px;
+      color: var(--muted);
+      line-height: 1.9;
+      font-size: 16px;
+    }
+
+    #hero {
+      position: relative;
+    }
+
+    .magic-rings-container {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: auto;
+    }
+
+    .hero-grid{
+      position: relative;
+      z-index: 2;
+      display:grid;
+      grid-template-columns: repeat(2,minmax(0,1fr));
+      gap: 80px;
+      align-items:center;
+      width: 100%;
+    }
+
+    .section .container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-buttons{
+      display:flex;
+      gap: 14px;
+      margin-top: 38px;
+      flex-wrap:wrap;
+    }
+
+    .button{
+      padding: 14px 24px;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 600;
+      transition: 0.3s ease;
+    }
+
+    .button.primary{
+      background: var(--primary);
+      color: #0f1115;
+      border: none;
+    }
+
+    .button:hover{
+      transform: translateY(-4px);
+    }
+
+    .hero-image {
+      width: 100%;
+      max-width: 320px;
+      margin: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      
+      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%);
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%);
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 15px 15px rgba(0,0,0,0.6));
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 26px;
+      margin-top: 60px;
+    }
+
+    .card.has-image {
+      grid-column: span 3;
+    }
+
+    .card.no-image {
+      grid-column: span 2;
+    }
+
+    .card{
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: var(--radius);
+      overflow:hidden;
+      transition: 0.35s ease;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card:hover{
+      transform: translateY(-10px);
+      border-color: rgba(138,180,248,0.15);
+    }
+
+    .card-image{
+      height: 220px;
+      overflow:hidden;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .card-image img{
+      transition: 0.4s ease;
+      height: 100%;
+      width: 100%;
+    }
+
+    .card:hover .card-image img{
+      transform: scale(1.04);
+    }
+
+    .image-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(15, 17, 21, 0.65);
+      backdrop-filter: blur(4px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 2;
+    }
+
+    .card-image:hover .image-overlay {
+      opacity: 1;
+    }
+
+    .view-img-btn {
+      padding: 10px 18px;
+      background: var(--primary);
+      color: #0f1115;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 999px;
+      border: none;
+      box-shadow: var(--shadow);
+      transform: translateY(10px);
+      transition: transform 0.3s ease;
+    }
+
+    .card-image:hover .view-img-btn {
+      transform: translateY(0);
+    }
+
+    .card-content{
+      padding: 28px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cert-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 8px;
+    }
+
+    .cert-org-logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
+      object-fit: contain;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      flex-shrink: 0;
+    }
+
+    .card-title{
+      font-size: 22px;
+      margin-bottom: 14px;
+      font-family: 'Google Sans', sans-serif;
+      line-height: 1.3;
+    }
+
+    .cert-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+
+    .cert-org {
+      color: var(--primary);
+      font-weight: 500;
+    }
+
+    .cert-date {
+      color: var(--muted);
+    }
+
+    .card-description{
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 24px;
+      font-size: 15px;
+    }
+
+    .tech-stack{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
+      margin-bottom: 26px;
+      margin-top: auto;
+    }
+
+    .tech-item{
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(138,180,248,0.08);
+      border: 1px solid rgba(138,180,248,0.08);
+      color: #c6dafc;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .card-buttons{
+      display:flex;
+      gap: 12px;
+      flex-wrap:wrap;
+    }
+
+    .skills-grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+      gap: 24px;
+      margin-top: 60px;
+    }
+
+    .skill-box{
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: var(--radius);
+      padding: 28px;
+      transition: 0.3s ease;
+    }
+
+    .skill-box:hover{
+      transform: translateY(-6px);
+    }
+
+    .skill-box h3{
+      margin-bottom: 20px;
+      font-size: 22px;
+      font-family: 'Google Sans', sans-serif;
+    }
+
+    .skill-list{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
+    }
+
+    .about-grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 26px;
+      margin-top: 60px;
+      width: 100%;
+    }
+
+    .about-card{
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: var(--radius);
+      padding: 30px;
+      width: 100%;
+    }
+
+    .about-card h3{
+      font-size: 22px;
+      margin-bottom: 16px;
+      font-family: 'Google Sans', sans-serif;
+    }
+
+    .about-card p{
+      color: var(--muted);
+      line-height: 1.9;
+    }
+
+    .contact-grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+      gap: 24px;
+      margin-top: 60px;
+    }
+
+    .contact-card{
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: var(--radius);
+      padding: 28px;
+    }
+
+    .contact-card h3{
+      margin-bottom: 12px;
+      font-family: 'Google Sans', sans-serif;
+    }
+
+    .contact-card p{
+      color: var(--muted);
+      word-break: break-all;
+    }
+
+    .resume-card{
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+    }
+
+    .resume-card h3{
+      font-size: 22px;
+      margin-bottom: 10px;
+      font-family: 'Google Sans', sans-serif;
+    }
+
+    .resume-actions{
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+
+    .resume-hint{
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .footer{
+      padding: 50px 0;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      text-align: center;
+      color: var(--muted);
+      background: rgba(255,255,255,0.01);
+    }
+
+    .lightbox-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 11, 14, 0.85);
+      backdrop-filter: blur(16px);
+      z-index: 2000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      padding: 40px;
+    }
+
+    .lightbox-modal.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .lightbox-content {
+      max-width: 90%;
+      max-height: 85vh;
+      border-radius: 20px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      border: 1px solid rgba(255,255,255,0.08);
+      transform: scale(0.95);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      object-fit: contain !important;
+    }
+
+    .lightbox-modal.active .lightbox-content {
+      transform: scale(1);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 30px;
+      right: 40px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      font-size: 22px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: 0.3s ease;
+    }
+
+    .lightbox-close:hover {
+      background: var(--primary);
+      color: #0f1115;
+      transform: scale(1.05);
+    }
+
+    /* Custom Cat Cursor Follower Element Layout */
+    #custom-cat-cursor {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 44px; 
+      height: 44px;
+      z-index: 10000; 
+      pointer-events: none; 
+      transform: translate3d(-50%, -50%, 0);
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      display: block;
+      transition: width 0.15s ease, height 0.15s ease;
+    }
+
+    /* Fullscreen Dedicated Terminal Trail Canvas Screen Viewport Styles */
+    #terminal-trail-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 9998; /* Injected layers beneath the cat follower element */
+      display: block;
+    }
+
+    @media(max-width:950px){
+      main{
+        scroll-snap-type:none;
+      }
+      body, a, button, input, textarea, select, .card-image, .lightbox-close {
+        cursor: auto !important;
+      }
+      #custom-cat-cursor, #terminal-trail-canvas {
+        display: none !important; 
+      }
+      .hero-grid{
+        grid-template-columns:1fr;
+        gap: 40px;
+      }
+      .hero-image {
+        max-width: 240px;
+      }
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+      .card.has-image,
+      .card.no-image {
+        grid-column: span 1;
+      }
+      .nav-inner{
+        flex-direction: column;
+        gap: 18px;
+        border-radius: 30px;
+      }
+      .section-title{
+        letter-spacing: -1px;
+      }
+      .lightbox-close {
+        top: 20px;
+        right: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="custom-cat-cursor"></div>
+
+<canvas id="terminal-trail-canvas"></canvas>
+
+<nav class="navbar">
+  <div class="nav-inner">
+    <div class="logo" id="logo"></div>
+    <div class="nav-links" id="nav-links"></div>
+  </div>
+</nav>
+
+<main id="app"></main>
+
+<div class="lightbox-modal" id="lightbox">
+  <button class="lightbox-close" id="lightbox-close">&times;</button>
+  <img class="lightbox-content" id="lightbox-img" src="" alt="Expanded View">
+</div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<script>
+const CONFIG = {
+  site:{
+    name:'AKASH PRASANNA S',
+    heroTitle: 'AKASH PRASANNA S',
+    heroSubtitle: 'Curious and execution-driven Computer Science undergraduate with hands-on experience in Java, full-stack development, cybersecurity, and AI-integrated tools. Proficient in building real-world applications across modern tech stacks. Eager to apply technical skills in a challenging environment while continuously evolving as a developer and security enthusiast.',
+    heroImage: './assets/akash bg remove.png',
+    footer: 'Developed by Akash Prasanna S | 2026',
+    sections:[
+      'hero',
+      'projects',
+      'skills',
+      'certifications',
+      'resume',
+      'about',
+      'contact'
+    ],
+    nav:[
+      {label:'Home',id:'hero'},
+      {label:'Projects',id:'projects'},
+      {label:'Skills',id:'skills'},
+      {label:'Certifications',id:'certifications'},
+      {label:'Resume',id:'resume'},
+      {label:'About',id:'about'},
+      {label:'Contact',id:'contact'}
+    ]
+  },
+
+  resume:{
+    file: './assets/resume.pdf',
+    title: 'Resume',
+    description: 'Download a PDF copy or open it in a new tab.'
+  },
+
+  projects:[
+    {
+      title:'Instant Board',
+      description: 'Realtime collaborative workspace with authentication, live syncing and modern UI interactions.',
+      image: './assets/inst-1.png',
+      tech: ['React', 'JavaScript', 'HTML', 'CSS'],
+      live:'https://instant-board.vercel.app/',
+      github:'https://github.com/aKash-S19/InstantBoard'
+    },
+    {
+      title:'Aegis Mail',
+      description: 'Aegis Mail AI is a small project (CLI + web) that connects to Gmail, fetches messages, and uses AI to produce structured summaries and suggested actions.',
+      image: './assets/aegmail.png',
+      tech: ['Python', 'FastAPI', 'JavaScript', 'AI APIs', 'HTML', 'CSS'],
+      github:'https://github.com/aKash-S19/Aegis-Mail'
+    },
+    {
+      title:'PacketFilterX',
+      description: 'PacketFilterX is a real-time network packet sniffer that detects anomalies like port scanning and ARP spoofing. Built with Python and Scapy, it offers customizable scans, live alerts, and detailed logging for enhanced network security.',
+      image: './assets/pckt.png',
+      tech: ['Python', 'Scapy'],
+      github:'#'
+    },
+    {
+      title:'Privy',
+      description: 'Privy is a privacy-first messaging application built with Expo (React Native) and Supabase. It provides encrypted direct chat, encrypted group chat, invite-based communities, secure signaling for voice calls, and hardened backend access through Edge Functions.',
+      image: './assets/privy.png',
+      tech: ['React Native','TypeScript', 'Expo', 'AES', 'ECDH P-256','Supabase'],
+      github:'https://github.com/aKash-S19/Privy'
+    },
+    {
+      title:'LearnAble',
+      description: 'LearnAble is a comprehensive React-based frontend application designed to provide accessible education for students with various disabilities. The platform incorporates advanced accessibility features including text-to-speech, high-contrast mode, captions, AAC communication boards, eye-tracking simulation, and keyboard navigation.',
+      tech: ['React', 'JavaScript', 'HTML', 'CSS'],
+      github:'https://github.com/aKash-S19/LearnAble'
+    },
+    {
+      title:'Periodic Table Mangement System',
+      description: 'This Periodic Table Management System in C language implements using a doubly linked list. Users can add, display, search, and delete elements based on atomic number. It demonstrates dynamic memory allocation, linked list operations, and basic input validation.',
+      tech: ['C Programming'],
+      github:'https://github.com/aKash-S19/Periodic-Table-Management-System'
+    }
+  ],
+
+  skills:[
+    {
+        title:'Languages',
+        items:['Java', 'Python', 'C']
+    },
+    {
+      title:'Frontend',
+      items:['HTML', 'CSS', 'JavaScript', 'React', 'Angular Js']
+    },
+    {
+      title:'Backend',
+      items:['Java', 'Spring Boot', 'REST APIs', 'Node.js']
+    },
+    {
+      title:'Database',
+      items:['MongoDB', 'MySQL', 'Supabase']
+    },
+    {
+        title:'Tools & Platforms',
+        items:['Git', 'AWS', 'Github']
+    },
+    {
+        title:'Cybersecurity',
+        items:['Network Security','CTFs', 'Security Practices', 'TryHackMe', 'HackTheBox']
+    }
+  ],
+
+  certifications: [
+    {
+      name: 'ISC2 Certified in Cybersecurity (CC)',
+      org: 'ISC2',
+      orgLogo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPU-LhaGFtAXKkGbRmfgzZJdo6qFotxg8MWQ&s',
+      date: 'Jul 2025',
+      image: './assets/isc2.jpg', 
+      link: 'https://www.credly.com/badges/334f9372-e5bc-4231-b1a7-e3fa48419d1e/public_url'
+    },
+    {
+      name: 'AWS Certified Cloud Practitioner',
+      org: 'Amazon Web Services',
+      orgLogo: 'https://ds6yc8t7pnx74.cloudfront.net/content/dam/appstore/visual_update_2024/l0/L0_logo_aws_250x250.png',
+      date: 'Mar 2026',
+      image: './assets/image.png',
+      link: 'https://www.credly.com/badges/a5c02909-9950-467b-91b6-80563e372d47/public_url'
+    },
+    {
+      name: 'Microsoft Certified: Power BI Data Analyst Associate',
+      org: 'Microsoft',
+      orgLogo: 'https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg',
+      date: 'Mar 2026',
+      link: 'https://learn.microsoft.com/en-us/users/akashprasannas-6437/achievements/2jxywa8v?ref=https%3A%2F%2Fwww.linkedin.com%2F'
+    },
+    {
+      name: 'Google Professional Cybersecurity Certificate',
+      org: 'Google',
+      orgLogo: 'https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg',
+      date: 'Dec 2024',
+      link: 'https://coursera.org/share/e1c4d7be8f82a8be27f9b090fc92a0af'
+    },
+    {
+    name: 'Google Prompting Essentials',
+      org: 'Google',
+      orgLogo: 'https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg',
+      date: 'Aug 2025',
+      link: 'https://coursera.org/share/ad78028d7a5e6d36b626110be1e2ad0e'
+    },
+    {
+      name: 'Python Basic',
+      org: 'HackerRank',
+      orgLogo: 'https://upload.wikimedia.org/wikipedia/commons/4/40/HackerRank_Icon-1000px.png?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=original',
+      date: 'Apr 2025',
+      link: 'https://www.hackerrank.com/certificates/ff91985c7b98'
+    },
+    {
+      name: 'Cloud Computing',
+      org: 'NPTEL',
+      orgLogo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8VRmuwZhG40QDxM_IF9klXkzNA96GmX1z2Q&s',
+      date: 'Apr 2025'
+    },
+    {
+      name: 'Programming in Java',
+      org: 'NPTEL',
+      orgLogo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8VRmuwZhG40QDxM_IF9klXkzNA96GmX1z2Q&s',
+      date: 'Apr 2024'
+    }
+  ],
+
+  about:{
+    bio: 'Passionate full stack developer focused on scalable systems, elegant interfaces and modern user experiences.'
+  },
+
+  contact:{
+    email: 'akashprasanna17@gmail.com',
+    phone: '+91 9789863140',
+    github: 'https://github.com/aKash-S19',
+    linkedin: 'https://www.linkedin.com/in/akash-prasanna-s-a12a602a4/',
+    location: 'India'
+  }
+}
+
+const app = document.getElementById('app')
+const navLinks = document.getElementById('nav-links')
+document.getElementById('logo').textContent = CONFIG.site.name
+
+CONFIG.site.nav.forEach(item=>{
+  const a = document.createElement('a')
+  a.href = `#${item.id}`
+  a.textContent = item.label
+  navLinks.appendChild(a)
+})
+
+const sections = {
+  hero:renderHero,
+  projects:renderProjects,
+  skills:renderSkills,
+  certifications:renderCertifications,
+  resume:renderResume,
+  about:renderAbout,
+  contact:renderContact
+}
+
+CONFIG.site.sections.forEach(section=>{
+  app.innerHTML += sections[section]()
+})
+
+app.innerHTML += `
+<footer class="footer">
+  <div class="container">
+    ${CONFIG.site.footer}
+  </div>
+</footer>
+`
+
+function renderHero(){
+  return`
+  <section class="section" id="hero">
+    <div class="magic-rings-container" id="magic-rings-mount"></div>
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-intro-text" data-aos="fade-up" data-aos-duration="1200">
+          <div class="section-tag">INTRO</div>
+          <h1 class="section-title">${CONFIG.site.heroTitle}</h1>
+          <p class="section-subtitle">${CONFIG.site.heroSubtitle}</p>
+          <div class="hero-buttons">
+            <a href="#projects" class="button primary">View Projects</a>
+            <a href="#contact" class="button">Contact</a>
+          </div>
+        </div>
+        <div class="hero-image" data-aos="zoom-in-up" data-aos-duration="1500">
+          <img src="${CONFIG.site.heroImage}" alt="Akash Prasanna S">
+        </div>
+      </div>
+    </div>
+  </section>
+  `
+}
+
+function renderProjects(){
+  return`
+  <section class="section" id="projects">
+    <div class="container">
+      <div class="section-tag" data-aos="fade-up">Featured Works</div>
+      <h2 class="section-title" data-aos="fade-up" data-aos-delay="100">Projects</h2>
+      
+      <div class="cards-grid">
+        ${CONFIG.projects.map((project, index)=>`
+          <div class="card ${project.image ? 'has-image' : 'no-image'}" 
+               data-aos="zoom-in-up" 
+               data-aos-duration="1000" 
+               data-aos-delay="${(index % 3) * 150}">
+            ${project.image ? `
+              <div class="card-image" onclick="openLightbox('${project.image}')">
+                <div class="image-overlay">
+                  <button class="view-img-btn">View Image</button>
+                </div>
+                <img src="${project.image}" alt="${project.title}">
+              </div>
+            ` : ''}
+            <div class="card-content">
+              <h3 class="card-title">${project.title}</h3>
+              <p class="card-description">${project.description}</p>
+              <div class="tech-stack">
+                ${project.tech.map(tech=>`<div class="tech-item">${tech}</div>`).join('')}
+              </div>
+              <div class="card-buttons">
+                ${project.live ? `<a href="${project.live}" target="_blank" rel="noopener noreferrer" class="button primary">Live</a>` : ''}
+                ${project.github ? `<a href="${project.github}" target="_blank" rel="noopener noreferrer" class="button">Code</a>` : ''}
+              </div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  </section>
+  `
+}
+
+function renderSkills(){
+  return`
+  <section class="section" id="skills">
+    <div class="container">
+      <div class="section-tag" data-aos="fade-up">Tech Stack</div>
+      <h2 class="section-title" data-aos="fade-up" data-aos-delay="100">Skills</h2>
+      <div class="skills-grid">
+        ${CONFIG.skills.map((skill, index)=>`
+          <div class="skill-box" 
+               data-aos="fade-up-right" 
+               data-aos-duration="1000" 
+               data-aos-delay="${index * 100}">
+            <h3>${skill.title}</h3>
+            <div class="skill-list">
+              ${skill.items.map(item=>`<div class="tech-item">${item}</div>`).join('')}
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  </section>
+  `
+}
+
+function renderCertifications(){
+  return`
+  <section class="section" id="certifications">
+    <div class="container">
+      <div class="section-tag" data-aos="fade-up">CREDENTIALS</div>
+      <h2 class="section-title" data-aos="fade-up" data-aos-delay="100">Certifications</h2>
+      
+      <div class="cards-grid">
+        ${CONFIG.certifications.map((cert, index)=>`
+          <div class="card ${cert.image ? 'has-image' : 'no-image'}" 
+               data-aos="zoom-in-up" 
+               data-aos-duration="1000" 
+               data-aos-delay="${(index % 3) * 150}">
+            ${cert.image ? `
+              <div class="card-image" onclick="openLightbox('${cert.image}')">
+                <div class="image-overlay">
+                  <button class="view-img-btn">View Image</button>
+                </div>
+                <img src="${cert.image}" alt="${cert.name}">
+              </div>
+            ` : ''}
+            <div class="card-content">
+              <div class="cert-header">
+                <h3 class="card-title" style="margin-bottom: 0;">${cert.name}</h3>
+                ${cert.orgLogo ? `<img src="${cert.orgLogo}" alt="${cert.org}" class="cert-org-logo">` : ''}
+              </div>
+              
+              <div class="cert-meta">
+                <span class="cert-org">${cert.org}</span>
+                <span class="cert-date">${cert.date}</span>
+              </div>
+              
+              <div class="card-buttons" style="margin-top: auto;">
+                ${cert.link ? `<a href="${cert.link}" target="_blank" rel="noopener noreferrer" class="button primary" style="padding: 10px 20px; font-size: 13px;">Verify Credential</a>` : ''}
+              </div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  </section>
+  `
+}
+
+function renderResume(){
+  return`
+  <section class="section" id="resume">
+    <div class="container">
+      <div class="section-tag" data-aos="fade-up">RESUME</div>
+      <h2 class="section-title" data-aos="fade-up" data-aos-delay="100">Resume</h2>
+      <div class="resume-card" data-aos="fade-up" data-aos-delay="150">
+        <h3>${CONFIG.resume.title}</h3>
+        <p class="section-subtitle">${CONFIG.resume.description}</p>
+        <div class="resume-actions">
+          <a href="${CONFIG.resume.file}" target="_blank" rel="noopener noreferrer" class="button primary">View in New Tab</a>
+          <a href="${CONFIG.resume.file}" class="button" download>Download PDF</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  `
+}
+
+function renderAbout(){
+  return`
+  <section class="section" id="about">
+    <div class="container">
+      <div class="section-tag" data-aos="fade-up">ABOUT</div>
+      <h2 class="section-title" data-aos="fade-up" data-aos-delay="100">Education</h2>
+      <div class="about-grid">
+        <div class="about-card" data-aos="fade-up" data-aos-duration="1200">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+            <h3 style="margin-bottom: 0;">K.Ramakrishnan College of Engineering</h3>
+            <span style="color: var(--primary); font-size: 14px; font-weight: 500;">2023 - 2027</span>
+          </div>
+          <p>Bachelor of Engineering (B.E) - Computer Science and Engineering (CSE)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  `
+}
+
+function renderContact(){
+  return`
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="section-tag" data-aos="fade-up">CONTACT</div>
+      <h2 class="section-title" data-aos="fade-up" data-aos-delay="100">Get In Touch</h2>
+      <div class="contact-grid">
+        <div class="contact-card" data-aos="zoom-in-up" data-aos-duration="1000">
+          <h3>Email</h3>
+          <p><a href="mailto:${CONFIG.contact.email}">${CONFIG.contact.email}</a></p>
+        </div>
+        <div class="contact-card" data-aos="zoom-in-up" data-aos-duration="1000" data-aos-delay="100">
+          <h3>Phone</h3>
+          <p>${CONFIG.contact.phone}</p>
+        </div>
+        <div class="contact-card" data-aos="zoom-in-up" data-aos-duration="1000" data-aos-delay="200">
+          <h3>LinkedIn</h3>
+          <p><a href="${CONFIG.contact.linkedin}" target="_blank" rel="noopener noreferrer">linkedin.com/akash-prasanna-s</a></p>
+        </div>
+        <div class="contact-card" data-aos="zoom-in-up" data-aos-duration="1000" data-aos-delay="300">
+          <h3>GitHub</h3>
+          <p><a href="${CONFIG.contact.github}" target="_blank" rel="noopener noreferrer">github.com/aKash-S19</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+  `
+}
+
+/* Modal Controller Logic Operations */
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+const lightboxClose = document.getElementById('lightbox-close');
+
+function openLightbox(src) {
+  lightboxImg.src = src;
+  lightbox.classList.add('active');
+  document.body.style.overflow = 'hidden'; 
+}
+
+function closeLightbox() {
+  lightbox.classList.remove('active');
+  document.body.style.overflow = ''; 
+  setTimeout(() => { lightboxImg.src = ''; }, 400); 
+}
+
+lightboxClose.addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', (e) => {
+  if (e.target === lightbox) closeLightbox();
+});
+
+const navItems = document.querySelectorAll('.nav-links a')
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      navItems.forEach(link=>{
+        link.classList.remove('active')
+        if(link.getAttribute('href') === `#${entry.target.id}`){
+          link.classList.add('active')
+        }
+      })
+    }
+  })
+},{
+  threshold:0.3
+})
+
+document.querySelectorAll('.section').forEach(section=>observer.observe(section))
+
+// Initialize AOS Scroll Animation System Engine
+AOS.init({
+  once: false, 
+  mirror: true
+});
+
+/* ==========================================
+   THREE.JS WEBGL MAGIC RINGS SHADER COMPONENT
+   ========================================== */
+(function() {
+  const vertexShader = `
+    void main() {
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+  `;
+
+  const fragmentShader = `
+    precision highp float;
+
+    uniform float uTime, uAttenuation, uLineThickness;
+    uniform float uBaseRadius, uRadiusStep, uScaleRate;
+    uniform float uOpacity, uNoiseAmount, uRotation, uRingGap;
+    uniform float uFadeIn, uFadeOut;
+    uniform float uMouseInfluence, uHoverAmount, uHoverScale, uParallax, uBurst;
+    uniform vec2 uCustomResolution;
+    uniform vec2 uMouse;
+    uniform vec3 uColor, uColorTwo;
+    uniform int uRingCount;
+
+    const float HP = 1.5707963;
+    const float CYCLE = 3.45;
+
+    float fade(float t) {
+      return t < uFadeIn ? smoothstep(0.0, uFadeIn, t) : 1.0 - smoothstep(uFadeOut, CYCLE - 0.2, t);
+    }
+
+    float ring(vec2 p, float ri, float cut, float t0, float px) {
+      float t = mod(uTime + t0, CYCLE);
+      float r = ri + t / CYCLE * uScaleRate;
+      float d = abs(length(p) - r);
+      float a = atan(abs(p.y), abs(p.x)) / HP;
+      float th = max(1.0 - a, 0.5) * px * uLineThickness;
+      float h = (1.0 - smoothstep(th, th * 1.5, d)) + 1.0;
+      d += pow(cut * a, 3.0) * r;
+      return h * exp(-uAttenuation * d) * fade(t);
+    }
+
+    void main() {
+      float px = 1.0 / min(uCustomResolution.x, uCustomResolution.y);
+      vec2 p = (gl_FragCoord.xy - 0.5 * uCustomResolution.xy) * px;
+      
+      float cr = cos(uRotation), sr = sin(uRotation);
+      p = mat2(cr, -sr, sr, cr) * p;
+      p -= uMouse * uMouseInfluence;
+      float sc = mix(1.0, uHoverScale, uHoverAmount) + uBurst * 0.3;
+      p /= sc;
+      vec3 c = vec3(0.0);
+      float rcf = max(float(uRingCount) - 1.0, 1.0);
+      for (int i = 0; i < 10; i++) {
+        if (i >= uRingCount) break;
+        float fi = float(i);
+        vec2 pr = p - fi * uParallax * uMouse;
+        vec3 rc = mix(uColor, uColorTwo, fi / rcf);
+        c = mix(c, rc, vec3(ring(pr, uBaseRadius + fi * uRadiusStep, pow(uRingGap, fi), i == 0 ? 0.0 : 2.95 * fi, px)));
+      }
+      c *= 1.0 + uBurst * 2.0;
+      float n = fract(sin(dot(gl_FragCoord.xy + uTime * 100.0, vec2(12.9898, 78.233))) * 43758.5453);
+      c += (n - 0.5) * uNoiseAmount;
+      gl_FragColor = vec4(c, max(c.r, max(c.g, c.b)) * uOpacity);
+    }
+  `;
+
+  const params = {
+    color: '#8ab4f8',      
+    colorTwo: '#111722',   
+    speed: 0.8,
+    ringCount: 5,
+    attenuation: 6.0,
+    lineThickness: 2.2,
+    baseRadius: 0.45,     
+    radiusStep: 0.15,
+    scaleRate: 0.35,
+    opacity: 0.55, 
+    noiseAmount: 0.03,
+    rotation: -15.0,
+    ringGap: 1.2,
+    fadeIn: 0.8,
+    fadeOut: 0.4,
+    followMouse: true,
+    mouseInfluence: 0.12,
+    hoverScale: 1.05,
+    parallax: 0.03,
+    clickBurst: true
+  };
+
+  const mount = document.getElementById('magic-rings-mount');
+  if (!mount) return;
+
+  let renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  } catch {
+    return;
+  }
+
+  renderer.setClearColor(0x000000, 0);
+  mount.appendChild(renderer.domElement);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.OrthographicCamera(-0.5, 0.5, 0.5, -0.5, 0.1, 10);
+  camera.position.z = 1;
+
+  const mouse = [0, 0];
+  const smoothMouse = [0, 0];
+  let hoverAmount = 0;
+  let isHovered = false;
+  let burst = 0;
+
+  const uniforms = {
+    uTime: { value: 0 },
+    uAttenuation: { value: 0 },
+    uCustomResolution: { value: new THREE.Vector2() },
+    uColor: { value: new THREE.Color() },
+    uColorTwo: { value: new THREE.Color() },
+    uLineThickness: { value: 0 },
+    uBaseRadius: { value: 0 },
+    uRadiusStep: { value: 0 },
+    uScaleRate: { value: 0 },
+    uRingCount: { value: 0 },
+    uOpacity: { value: 1 },
+    uNoiseAmount: { value: 0 },
+    uRotation: { value: 0 },
+    uRingGap: { value: 1.6 },
+    uFadeIn: { value: 0.5 },
+    uFadeOut: { value: 0.75 },
+    uMouse: { value: new THREE.Vector2() },
+    uMouseInfluence: { value: 0 },
+    uHoverAmount: { value: 0 },
+    uHoverScale: { value: 1 },
+    uParallax: { value: 0 },
+    uBurst: { value: 0 },
+  };
+
+  const material = new THREE.ShaderMaterial({ vertexShader, fragmentShader, uniforms, transparent: true });
+  const quad = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), material);
+  scene.add(quad);
+
+  function resize() {
+    const w = mount.clientWidth;
+    const h = mount.clientHeight;
+    const dpr = Math.min(window.devicePixelRatio, 2);
+    renderer.setSize(w, h);
+    renderer.setPixelRatio(dpr);
+    uniforms.uCustomResolution.value.set(w * dpr, h * dpr);
+  }
+  
+  resize();
+  window.addEventListener('resize', resize);
+  new ResizeObserver(resize).observe(mount);
+
+  window.addEventListener('mousemove', (e) => {
+    const rect = mount.getBoundingClientRect();
+    if (e.clientY >= rect.top && e.clientY <= rect.bottom) {
+      isHovered = true;
+      mouse[0] = (e.clientX - rect.left) / rect.width - 0.5;
+      mouse[1] = -((e.clientY - rect.top) / rect.height - 0.5);
+    } else {
+      isHovered = false;
+    }
+  });
+  
+  window.addEventListener('click', (e) => {
+    const rect = mount.getBoundingClientRect();
+    if (e.clientY >= rect.top && e.clientY <= rect.bottom) {
+      burst = 1.0;
+    }
+  });
+
+  function animate(t) {
+    requestAnimationFrame(animate);
+
+    smoothMouse[0] += (mouse[0] - smoothMouse[0]) * 0.05;
+    smoothMouse[1] += (mouse[1] - smoothMouse[1]) * 0.05;
+    hoverAmount += ((isHovered ? 1 : 0) - hoverAmount) * 0.05;
+    burst *= 0.95;
+    if (burst < 0.001) burst = 0;
+
+    uniforms.uTime.value = t * 0.001 * params.speed;
+    uniforms.uAttenuation.value = params.attenuation;
+    uniforms.uColor.value.set(params.color);
+    uniforms.uColorTwo.value.set(params.colorTwo);
+    uniforms.uLineThickness.value = params.lineThickness;
+    uniforms.uBaseRadius.value = params.baseRadius;
+    uniforms.uRadiusStep.value = params.radiusStep;
+    uniforms.uScaleRate.value = params.scaleRate;
+    uniforms.uRingCount.value = params.ringCount;
+    uniforms.uOpacity.value = params.opacity;
+    uniforms.uNoiseAmount.value = params.noiseAmount;
+    uniforms.uRotation.value = (params.rotation * Math.PI) / 180;
+    uniforms.uRingGap.value = params.ringGap;
+    uniforms.uFadeIn.value = params.fadeIn;
+    uniforms.uFadeOut.value = params.fadeOut;
+    uniforms.uMouse.value.set(smoothMouse[0], smoothMouse[1]);
+    uniforms.uMouseInfluence.value = params.followMouse ? params.mouseInfluence : 0;
+    uniforms.uHoverAmount.value = hoverAmount;
+    uniforms.uHoverScale.value = params.hoverScale;
+    uniforms.uParallax.value = params.parallax;
+    uniforms.uBurst.value = params.clickBurst ? burst : 0;
+
+    renderer.render(scene, camera);
+  }
+  requestAnimationFrame(animate);
+})();
+
+/* ==========================================
+   POP-CAT MOUSE CURSOR & TERMINAL TRAIL SYSTEM ENGINE
+   ========================================== */
+(function() {
+  const cursor = document.getElementById('custom-cat-cursor');
+  const canvas = document.getElementById('terminal-trail-canvas');
+  if (!cursor || !canvas) return;
+
+  const ctx = canvas.getContext('2d');
+  
+  // Custom Asset Path bindings mapping declarations
+  const images = {
+    closed: './assets/img 1.png', 
+    open: './assets/img 2.png'
+  };
+
+  cursor.style.backgroundImage = `url('${images.closed}')`;
+
+  // Terminal Particle Data Store
+  let particles = [];
+  const terminalPool = ['0', '1', '>', '_', '$', '%', '+', '!', '&', './', '@', '~', '{', '}','<','(',')'];
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  // Mouse vector positions tracking variables
+  let mouseX = 0;
+  let mouseY = 0;
+  let currentImageState = images.closed;
+
+  window.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    cursor.style.left = mouseX + 'px';
+    cursor.style.top = mouseY + 'px';
+
+    // Spawn terminal trail characters on drag/movement activity triggers
+    if (Math.random() < 0.28) {
+      particles.push({
+        x: mouseX + (Math.random() - 0.5) * 10,
+        y: mouseY + 24, // Generates items slightly beneath the head
+        text: terminalPool[Math.floor(Math.random() * terminalPool.length)],
+        opacity: 1.0,
+        size: 11 + Math.random() * 4,
+        vx: (Math.random() - 0.5) * 1.5,
+        vy: 0.5 + Math.random() * 1.2
+      });
+    }
+  });
+
+  // Track interactive hover elements to flip PopCat open/closed states dynamically
+  const attachCursorEvents = () => {
+    const targets = document.querySelectorAll('a, button, input, textarea, select, .card-image, .lightbox-close');
+    
+    targets.forEach(element => {
+      if (element.dataset.cursorBound) return;
+      element.dataset.cursorBound = "true";
+
+      element.addEventListener('mouseenter', () => {
+        currentImageState = images.open;
+        cursor.style.backgroundImage = `url('${images.open}')`;
+        cursor.style.width = '52px';
+        cursor.style.height = '52px';
+      });
+
+      element.addEventListener('mouseleave', () => {
+        currentImageState = images.closed;
+        cursor.style.backgroundImage = `url('${images.closed}')`;
+        cursor.style.width = '44px';
+        cursor.style.height = '44px';
+      });
+
+      element.addEventListener('mousedown', () => {
+        cursor.style.backgroundImage = `url('${images.open}')`;
+      });
+    });
+  };
+
+  attachCursorEvents();
+  const observer = new MutationObserver(attachCursorEvents);
+  observer.observe(document.body, { childList: true, subtree: true });
+
+  // Render loop for Terminal Trail system elements
+  function animateTrail() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    ctx.font = "bold 13px monospace";
+    
+    particles = particles.filter(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.opacity -= 0.025; // Continuous fading linear loop calculations
+
+      if (p.opacity <= 0) return false;
+
+      // Draw custom terminal string blocks matching portfolio theme color spectrums
+      ctx.fillStyle = `rgba(138, 180, 248, ${p.opacity})`;
+      ctx.font = `${p.size}px monospace`;
+      ctx.fillText(p.text, p.x, p.y);
+
+      return true;
+    });
+
+    requestAnimationFrame(animateTrail);
+  }
+  requestAnimationFrame(animateTrail);
+})();
+</script>
+
+</body>
+</html>
